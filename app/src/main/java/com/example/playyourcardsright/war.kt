@@ -23,8 +23,7 @@ class war : AppCompatActivity() {
 
     val api = DeckOfCardsApi()
     init {
-        lifecycleScope.launch
-        {
+        lifecycleScope.launch{
             val deck = api.getShuffledDeck()
             val deckId = deck.deck_id
         }
