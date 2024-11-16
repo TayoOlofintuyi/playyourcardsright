@@ -2,6 +2,8 @@ package com.example.playyourcardsright.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 class DeckOfCardsApi {
     private val retrofit = Retrofit.Builder()
