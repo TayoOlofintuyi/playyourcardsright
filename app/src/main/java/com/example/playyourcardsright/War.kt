@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.playyourcardsright.api.DeckOfCardsApi
 import kotlinx.coroutines.launch
 
-class war : AppCompatActivity() {
+class War : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
