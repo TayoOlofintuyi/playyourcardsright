@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.com.google.devtools.ksp)
 }
 
 android {
@@ -67,6 +68,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.moshi)
     implementation(libs.coil)
+    ksp(libs.moshi.kotlin.codegen)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.converter.moshi)
     testImplementation(libs.junit)

@@ -12,30 +12,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Play Your Cards Right!"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/warButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.425" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/warButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="War"
+        android:text="@string/war"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/blackjackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Blackjack"
+        android:text="@string/blackjack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/warButton"
         app:layout_constraintVertical_bias="0.0
 " />
 

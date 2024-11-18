@@ -21,11 +21,11 @@ class War : AppCompatActivity() {
         }
     }
 
-    val api = DeckOfCardsApi()
-    init {
-        lifecycleScope.launch{
-            val deck = api.getShuffledDeck()
-            val deckId = deck.deck_id
-        }
-    }
+//    val api = DeckOfCardsApi()
+//    init {
+//        lifecycleScope.launch{
+//            val deck = api.getShuffledDeck()
+//            val deckId = deck.deck_id
+//        }
+//    }
 }

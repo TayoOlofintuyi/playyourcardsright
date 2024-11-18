@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Play Your Cards Right</string>
+    <string name="war">War</string>
+    <string name="blackjack">Blackjack</string>
 </resources>
