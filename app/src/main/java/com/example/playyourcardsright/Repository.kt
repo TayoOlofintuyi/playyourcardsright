@@ -6,7 +6,7 @@ import com.example.playyourcardsright.api.DecksResponse
 import com.example.playyourcardsright.api.PhotoInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
 class Repository {
@@ -19,7 +19,7 @@ class Repository {
 
          val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://deckofcardsapi.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
         deckOfCards = retrofit.create()
