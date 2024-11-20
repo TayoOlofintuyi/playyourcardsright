@@ -1,24 +1,26 @@
 package com.example.playyourcardsright
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.playyourcardsright.databinding.ActivityWarBinding
+import kotlinx.coroutines.launch
 
 
 class War : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityWarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.placeButton.setOnClickListener {
+            val openDeckRepository = DeckRepository()
+            lifecycleScope.launch {
+                val deck = openDeckRepository.fetchDeck()
+                Log.d("War Activity", "Deck information to create, and shuffle: ${deck}")
+            }
+        }
 
     }
 
-//    val api = DeckOfCardsApi()
-//    init {
-//        lifecycleScope.launch{
-//            val deck = api.getShuffledDeck()
-//            val deckId = deck.deck_id
-//        }
-//    }
 }
