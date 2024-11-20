@@ -1,8 +1,7 @@
 package com.example.playyourcardsright
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bignerdranch.android.photogallery.databinding.ActivityWarBinding
+import com.example.playyourcardsright.databinding.ActivityWarBinding
 
 
 class War : AppCompatActivity() {

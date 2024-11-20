@@ -2,8 +2,7 @@ package com.example.playyourcardsright
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bignerdranch.android.photogallery.databinding.ActivityMainBinding
-
+import com.example.playyourcardsright.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
