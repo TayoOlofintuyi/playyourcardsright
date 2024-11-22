@@ -2,6 +2,8 @@ package com.example.playyourcardsright
 
 import com.example.playyourcardsright.api.Deck
 import com.example.playyourcardsright.api.DeckOfCardsApi
+import com.example.playyourcardsright.api.DrawCard
+import com.example.playyourcardsright.api.DrawCardResult
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -20,4 +22,7 @@ class DeckRepository {
     //I am fetching from the internal i.e. where the data is
     suspend fun fetchDeck(): Deck =
         deckApi.shuffleDeck()
+
+    //function to draw a card
+    suspend fun drawCard():List<DrawCard> = deckApi.drawCard().cards
 }

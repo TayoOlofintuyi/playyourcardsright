@@ -17,7 +17,8 @@ class War : AppCompatActivity() {
             val openDeckRepository = DeckRepository()
             lifecycleScope.launch {
                 val deck = openDeckRepository.fetchDeck()
-                Log.d("War Activity", "Deck information to create, and shuffle: ${deck}")
+                val drawCard = openDeckRepository.drawCard()
+                Log.d("War Activity", "Deck information to create, and shuffle: $drawCard")
             }
         }
 

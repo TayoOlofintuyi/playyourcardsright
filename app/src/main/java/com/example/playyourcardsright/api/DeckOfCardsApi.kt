@@ -8,5 +8,9 @@ import retrofit2.http.GET
 interface DeckOfCardsApi {
         @GET("/api/deck/new/shuffle/?deck_count=1")
         suspend fun shuffleDeck(): Deck
+
+        //this deck id is different from the shuffleDeck though
+        @GET("/api/deck/kxozasf3edqu/draw/?count=1")
+        suspend fun drawCard():DrawCardResult
 }
 
