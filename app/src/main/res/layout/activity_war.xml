@@ -8,13 +8,6 @@
     android:background="@drawable/green_background"
     android:padding="16dp">
 
-    <!-- Label for Player 1 -->
-
-    <!-- Card for Player 1 -->
-
-
-    <!-- Play Button -->
-
     <TextView
         android:id="@+id/player1Label"
         android:layout_width="wrap_content"
