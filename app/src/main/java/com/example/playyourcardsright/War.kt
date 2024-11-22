@@ -13,7 +13,7 @@ class War : AppCompatActivity() {
         val binding = ActivityWarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.placeButton.setOnClickListener {
+        binding.playButton.setOnClickListener {
             val openDeckRepository = DeckRepository()
             lifecycleScope.launch {
                 val deck = openDeckRepository.fetchDeck()

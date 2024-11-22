@@ -1,58 +1,108 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".War">
+    tools:context=".WarGameActivity"
+    android:background="@drawable/green_background"
+    android:padding="16dp">
+
+    <!-- Label for Player 1 -->
+
+    <!-- Card for Player 1 -->
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="179dp"
-        android:layout_marginBottom="48dp"
-        android:src="@drawable/cardback"
-        app:layout_constraintBottom_toTopOf="@+id/place_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="200dp"
-        android:layout_height="179dp"
-        android:layout_marginBottom="52dp"
-        android:src="@drawable/cardback"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Play Button -->
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/player1Label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="Player 1"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/player1Card"
+        app:layout_constraintHorizontal_bias="0.394"
+        app:layout_constraintStart_toStartOf="@id/player1Card"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        android:layout_marginTop="300dp"
-        android:text="your card total: "
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
+    <ImageView
+        android:id="@+id/player1Card"
+        android:layout_width="114dp"
+        android:layout_height="191dp"
+        android:layout_marginTop="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back_second"
+        app:layout_constraintEnd_toStartOf="@+id/player2Card"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/player1Label"
+        app:layout_constraintWidth_percent="0.45" />
+
+
+    <TextView
+        android:id="@+id/player2Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="Player 2"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/player2Card"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="@id/player2Card"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/player2Card"
+        android:layout_width="114dp"
+        android:layout_height="191dp"
+        android:layout_marginTop="80dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back_second"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player1Card"
+        app:layout_constraintTop_toBottomOf="@+id/player2Label"
+        app:layout_constraintWidth_percent="0.45" />
+
+    <TextView
+        android:id="@+id/gameResultText"
+        android:layout_width="267dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="88dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Result will be shown here"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/playButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player2Card" />
 
     <Button
-        android:textSize="30sp"
-        android:id="@+id/place_button"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:text="place card"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:id="@+id/playButton"
+        android:layout_width="198dp"
+        android:layout_height="54dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/button_background"
+        android:text="DEAL"
+        android:textColor="#D3D3D3"
+        style="@style/CustomButtonStyle"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

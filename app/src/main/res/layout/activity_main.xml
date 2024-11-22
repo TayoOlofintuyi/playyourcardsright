@@ -7,49 +7,47 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@drawable/background_mysterious"
-    android:padding="16dp">  <!-- Add padding for a cleaner UI -->
+    android:padding="16dp">
 
     <!-- Title -->
-<TextView
-    android:id="@+id/titleText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Play Your Cards Right!"
-    android:textSize="28sp"
-    android:textColor="@android:color/white"
-    android:fontFamily="sans-serif-condensed"
-    app:layout_constraintBottom_toTopOf="@+id/warButton"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.3" />
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Your Cards Right!"
+        android:textSize="28sp"
+        android:textColor="@android:color/white"
+        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintBottom_toTopOf="@+id/warButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 
     <!-- War Button with Styling -->
-<Button
-    android:id="@+id/warButton"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:text="@string/war"
-    android:textSize="18sp"
-    android:textColor="@android:color/white"
-    android:background="@drawable/button_gradient"
-    android:layout_marginTop="24dp"
-    app:layout_constraintBottom_toTopOf="@+id/blackjackButton"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/warButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/war"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/blackjackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-<Button
-android:id="@+id/blackjackButton"
-android:layout_width="0dp"
-android:layout_height="wrap_content"
-android:text="@string/blackjack"
-android:textSize="18sp"
-android:textColor="@android:color/white"
-android:background="@drawable/button_gradient"
-    app:layout_constraintTop_toBottomOf="@+id/warButton"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/blackjackButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/blackjack"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/warButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/infoText"
@@ -57,16 +55,15 @@ android:background="@drawable/button_gradient"
         android:layout_height="wrap_content"
         android:text="Choose a game to start"
         android:textSize="18sp"
-    android:textColor="@android:color/white"
-    android:fontFamily="sans-serif-condensed"
-    android:letterSpacing="0.05"
-    android:layout_marginTop="16dp"
-    android:textStyle="italic"
-    android:gravity="center"
-    app:layout_constraintTop_toBottomOf="@+id/blackjackButton"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintVertical_bias="0.6" />
+        android:textColor="@android:color/white"
+        android:fontFamily="sans-serif-condensed"
+        android:letterSpacing="0.05"
+        android:layout_marginTop="16dp"
+        android:textStyle="italic"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/blackjackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
