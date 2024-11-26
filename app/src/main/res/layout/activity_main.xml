@@ -14,7 +14,7 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play Your Cards Right!"
+        android:text="Welcome to War! Ready to play?"
         android:textSize="28sp"
         android:textColor="@android:color/white"
         android:fontFamily="sans-serif-condensed"
