@@ -10,9 +10,9 @@ material = "1.12.0"
 activity = "1.9.2"
 constraintlayout = "2.1.4"
 fragmentKtx = "1.8.5"
-retrofit = "2.9.0"
+retrofit = "2.11.0"
 moshi = "1.15.1"
-okhttp = "4.9.3"
+okhttp = "4.12.0"
 kotlinxCoroutinesCore = "1.9.0"
 kotlinxCoroutinesAndroid = "1.9.0"
 lifecycleRuntimeKtx = "2.8.6"
@@ -22,6 +22,7 @@ converterMoshi = "2.11.0"
 coil = "2.7.0"
 datastorePreferences = "1.1.1"
 moshiKotlinCodegen = "1.15.1"
+converterScalars = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +48,7 @@ moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-code
 converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "converterMoshi" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
+converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "converterScalars" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

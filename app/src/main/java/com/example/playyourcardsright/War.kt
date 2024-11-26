@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import coil.load
 import com.example.playyourcardsright.databinding.ActivityWarBinding
 import kotlinx.coroutines.launch
 
@@ -23,8 +24,18 @@ class War : AppCompatActivity() {
 
         binding.playButton.setOnClickListener {
             lifecycleScope.launch {
+//                val deck = DeckRepository().fetchDeck()
+//                Log.d("War", "Response 1; $deck")
                 cardViewModel.fetchDeck.collect{
-                    items -> Log.d("War", "Response; $items")
+                    deck -> Log.d("War", "Response 2; $deck")
+                    cardViewModel.drawCard.collect { cards ->
+                        if (cards.isNotEmpty()) {
+                            val card = cards[0]
+                            card?.let {
+                                binding.player1Card.load(card.image)
+                            }
+                        }
+                    }
                 }
 
             }

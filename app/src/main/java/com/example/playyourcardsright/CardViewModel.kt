@@ -25,11 +25,14 @@ class CardViewModel(): ViewModel() {
     init {
         viewModelScope.launch {
             try {
-//                val deck = deckRepository.fetchDeck()
-//                _fetchDeck.value = deck
-
-                val cards = deckRepository.drawCard()
+                Log.d("War", "Before call")
+                val deck = deckRepository.fetchDeck()
+                Log.d("War", "After call")
+                _fetchDeck.value = deck
+                Log.d("War", "Response; $deck")
+                val cards = deckRepository.drawCard(deck.deckId)
                 _drawCard.value = cards
+                Log.d("War", "Response Cards; $cards")
             }
             catch (e:Exception){
                 Log.e("CardViewModel", "Error fetching: ${e.message}")
