@@ -62,16 +62,25 @@ class War : AppCompatActivity() {
     }
 
     private fun compareCards(player1Card: DrawCard?, player2Card: DrawCard?): String {
-        // Assuming cards have a numerical value, such as 'rank' (e.g., Ace = 14, 2 = 2, Jack = 11)
         val player1CardValue = getCardValue(player1Card)
         val player2CardValue = getCardValue(player2Card)
 
         return when {
-            player1CardValue > player2CardValue -> "Player 1 Wins!"
-            player1CardValue < player2CardValue -> "Player 2 Wins!"
-            else -> "It's a Tie!"
+            player1CardValue > player2CardValue -> {
+                result = "Player 1 Wins!" // Set the result
+                "Player 1 Wins!"
+            }
+            player1CardValue < player2CardValue -> {
+                result = "Player 2 Wins!" // Set the result
+                "Player 2 Wins!"
+            }
+            else -> {
+                result = "It's a Tie!" // Set the result
+                "It's a Tie!"
+            }
         }
     }
+
 
 
 
@@ -113,7 +122,6 @@ class War : AppCompatActivity() {
                 } ?: run {
                     Log.d("War Activity", "No result to display")
                 }
-                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
