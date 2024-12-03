@@ -25,11 +25,14 @@ class CardViewModel(): ViewModel() {
     init {
         viewModelScope.launch {
             try {
-//                val deck = deckRepository.fetchDeck()
-//                _fetchDeck.value = deck
-
-                val cards = deckRepository.drawCard()
+                Log.d("War", "Before call")
+                val deck = deckRepository.fetchDeck()
+                Log.d("War", "After call")
+                _fetchDeck.value = deck
+                Log.d("FetchDeck in ViewModel", "Response; $deck")
+                val cards = deckRepository.drawCard(deck.deckId)
                 _drawCard.value = cards
+                Log.d("DrawCard in ViewModel", "Response Cards; $cards")
             }
             catch (e:Exception){
                 Log.e("CardViewModel", "Error fetching: ${e.message}")
@@ -37,5 +40,37 @@ class CardViewModel(): ViewModel() {
 
         }
     }
+
+    suspend fun shuffleDeck(): Deck {
+        // API call to shuffle deck and return the shuffled deck object
+        val shuffledDeck = deckRepository.fetchDeck()
+        _fetchDeck.value = shuffledDeck
+        Log.d("ShuffledDeck", "Value is $shuffledDeck")
+        return shuffledDeck
+    }
+
+    // Function to draw two cards
+    suspend fun drawTwoCards(deckId: String) {
+        try {
+            // Draw two cards from the deck
+            val cards = mutableListOf<DrawCard>()
+            cards.addAll(drawCard(deckId))  // First card
+            cards.addAll(drawCard(deckId))  // Second card
+
+            // Update the _drawCard state with the drawn cards
+            _drawCard.value = cards
+
+            Log.d("CardViewModel", "Cards drawn: $cards")
+        } catch (e: Exception) {
+            Log.e("CardViewModel", "Error drawing cards: ${e.message}")
+        }
+    }
+
+    suspend fun drawCard(deckId: String): List<DrawCard> {
+        val deck = deckRepository.fetchDeck()
+        _fetchDeck.value = deck
+        return deckRepository.drawCard(deck.deckId)
+    }
+
 
 }
