@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playyourcardsright.api.Deck
 import com.example.playyourcardsright.api.DrawCard
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,20 +46,47 @@ class CardViewModel : ViewModel() {
     // Function to draw a specified number of cards
     suspend fun drawCards(deckId: String, count: Int) {
         try {
-            val result = if (count == 4) {
-                deckRepository.drawFourCards(deckId) // For Blackjack, 4 cards
-            } else {
-                if (count == 1) {
-                    deckRepository.drawaCard(deckId)
-                }else {
-                    deckRepository.drawCard(deckId) // For War, 2 cards
+            val result = when (count) {
+                4 -> deckRepository.drawFourCards(deckId)
+                2 -> deckRepository.drawCard(deckId)
+                1 -> deckRepository.drawaCard(deckId)
+                else -> deckRepository.drawCard(deckId)
+            }
+
+            _drawCard.value = result.cards
+
+            // Update the remaining count in the current deck
+            val currentDeck = _fetchDeck.value
+            if (currentDeck != null) {
+                val updatedDeck = currentDeck.copy(remaining = currentDeck.remaining - count)
+                _fetchDeck.value = updatedDeck
+            }
+            if (currentDeck != null) {
+                if(currentDeck.remaining <= 0) {
+                    fetchNewDeck()
+                    drawCards(deckId, count)
                 }
             }
-            _drawCard.value = result.cards // Save the drawn cards to state
-            Log.d("CardViewModel", "$count Cards drawn: ${result.cards}")
+
+            Log.d("CardViewModel", "$count Cards drawn: ${result.cards}, Remaining: ${_fetchDeck.value?.remaining}")
         } catch (e: Exception) {
             Log.e("CardViewModel", "Error drawing cards: ${e.message}")
         }
     }
+
+
+
+    fun fetchNewDeck() {
+        viewModelScope.launch {
+            try {
+                val newDeck = deckRepository.fetchDeck() // Fetches a new deck and shuffles it
+                _fetchDeck.value = newDeck
+                Log.d("CardViewModel", "Fetched a new deck: ${newDeck.deckId}")
+            } catch (e: Exception) {
+                Log.e("CardViewModel", "Error fetching new deck: ${e.message}")
+            }
+        }
+    }
+
 }
 

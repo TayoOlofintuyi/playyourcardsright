@@ -38,6 +38,7 @@ class BlackJack : AppCompatActivity() {
                             setupInitialCards(binding, cards)
                             binding.stopButton.isEnabled = true
                             binding.drawButton.isEnabled = true
+                            binding.playButton.isEnabled = false
                         }
                     }
                 }
@@ -46,8 +47,10 @@ class BlackJack : AppCompatActivity() {
 
         binding.drawButton.setOnClickListener {
             lifecycleScope.launch {
-                if (isPlayerTurn && cardViewModel.fetchDeck.value != null) {
-                    cardViewModel.drawCards(cardViewModel.fetchDeck.value!!.deckId, 1)
+                if (isPlayerTurn) {
+                    val currentDeck = cardViewModel.fetchDeck.value
+                    val deckId = currentDeck?.deckId ?: return@launch
+                    cardViewModel.drawCards(deckId, 1)
 
                     val newCard = cardViewModel.drawCard.value.lastOrNull()
                     if (newCard != null) {
@@ -61,6 +64,7 @@ class BlackJack : AppCompatActivity() {
                 }
             }
         }
+
 
         binding.stopButton.setOnClickListener {
             isPlayerTurn = false
@@ -96,11 +100,12 @@ class BlackJack : AppCompatActivity() {
     }
 
     private suspend fun playDealerTurn(binding: ActivityBlackjackBinding) {
-        val deck = cardViewModel.fetchDeck.value ?: return
-
         while (dealerTotal < 21 && dealerTotal < playerTotal) {
             delay(1000L)
-            cardViewModel.drawCards(deck.deckId, 1)
+
+            val currentDeck = cardViewModel.fetchDeck.value
+            val deckId = currentDeck?.deckId ?: return
+            cardViewModel.drawCards(deckId, 1)
 
             val newCard = cardViewModel.drawCard.value.lastOrNull()
             if (newCard != null) {
@@ -117,6 +122,7 @@ class BlackJack : AppCompatActivity() {
         val result = determineWinner(playerTotal, dealerTotal)
         showGameResultPopup(binding, result)
     }
+
 
     private fun updateDealerUI(binding: ActivityBlackjackBinding, card: DrawCard?) {
         binding.dealerCardExtra.load(card?.image)
