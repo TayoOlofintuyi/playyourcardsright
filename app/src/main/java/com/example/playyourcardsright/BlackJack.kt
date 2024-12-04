@@ -1,7 +1,10 @@
 package com.example.playyourcardsright
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +19,7 @@ class BlackJack : AppCompatActivity() {
     private val cardViewModel: CardViewModel by viewModels()
     private var playerTotal = 0
     private var dealerTotal = 0
-    private var isPlayerTurn = true // Track whose turn it is
+    private var isPlayerTurn = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,9 +132,37 @@ class BlackJack : AppCompatActivity() {
             .setNegativeButton("Exit") { _, _ ->
                 finish()
             }
+            .setNeutralButton("Share") { _, _ ->
+                checkContactPermissionAndShare(result)
+            }
             .setCancelable(false)
             .create()
         dialog.show()
+    }
+
+    private fun checkContactPermissionAndShare(result: String) {
+        if (checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            shareGameResult(result)
+        } else {
+            requestPermissions(arrayOf(android.Manifest.permission.READ_CONTACTS), 1001)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1001 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            shareGameResult("Game Result: Example Result")
+        } else {
+            Toast.makeText(this, "Contacts permission is required to share the result.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun shareGameResult(result: String) {
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, "Game Result: $result")
+        }
+        startActivity(Intent.createChooser(shareIntent, "Share Game Result"))
     }
 
     private fun resetGame(binding: ActivityBlackjackBinding) {
