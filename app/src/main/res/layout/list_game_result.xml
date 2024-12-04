@@ -3,14 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#FFF5E1"> <!-- Soft beige background for the layout -->
 
-    <!-- TextView to display the game result -->
     <TextView
         android:id="@+id/gameResultText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Game Result: "
         android:textSize="18sp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:background="#FFA726"
+        android:padding="8dp"
+        android:textColor="#FFFFFF"/>
 </LinearLayout>
