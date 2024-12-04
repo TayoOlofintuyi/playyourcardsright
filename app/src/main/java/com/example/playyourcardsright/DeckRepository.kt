@@ -40,4 +40,5 @@ class DeckRepository {
 
     // Function to draw 4 cards
     suspend fun drawFourCards(deckId: String): DrawCardResult = deckApi.drawFourCard(deckId)
+    suspend fun drawaCard(deckId: String): DrawCardResult = deckApi.drawaCard(deckId)
 }

@@ -48,7 +48,11 @@ class CardViewModel : ViewModel() {
             val result = if (count == 4) {
                 deckRepository.drawFourCards(deckId) // For Blackjack, 4 cards
             } else {
-                deckRepository.drawCard(deckId) // For War, 2 cards
+                if (count == 1) {
+                    deckRepository.drawaCard(deckId)
+                }else {
+                    deckRepository.drawCard(deckId) // For War, 2 cards
+                }
             }
             _drawCard.value = result.cards // Save the drawn cards to state
             Log.d("CardViewModel", "$count Cards drawn: ${result.cards}")

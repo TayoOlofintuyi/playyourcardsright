@@ -16,5 +16,8 @@ interface DeckOfCardsApi {
 
         @GET("/api/deck/{id}/draw/?count=4")
         suspend fun drawFourCard(@Path("id") deckId: String):DrawCardResult
+
+        @GET("/api/deck/{id}/draw/?count=1")
+        suspend fun drawaCard(@Path("id") deckId: String):DrawCardResult
 }
 
