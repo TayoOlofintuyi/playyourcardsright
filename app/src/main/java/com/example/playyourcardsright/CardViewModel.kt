@@ -28,7 +28,7 @@ class CardViewModel : ViewModel() {
             try {
                 val deck = deckRepository.fetchDeck()
                 _fetchDeck.value = deck
-                // Default behavior can draw 4 cards for Blackjack
+
                 drawCards(deck.deckId, 4)
             } catch (e: Exception) {
                 Log.e("CardViewModel", "Error fetching: ${e.message}")
@@ -36,14 +36,15 @@ class CardViewModel : ViewModel() {
         }
     }
 
-    // Function to shuffle deck
+
+
     suspend fun shuffleDeck(): Deck {
         val shuffledDeck = deckRepository.fetchDeck()
         _fetchDeck.value = shuffledDeck
         return shuffledDeck
     }
 
-    // Function to draw a specified number of cards
+
     suspend fun drawCards(deckId: String, count: Int) {
         try {
             val result = when (count) {
@@ -55,17 +56,19 @@ class CardViewModel : ViewModel() {
 
             _drawCard.value = result.cards
 
-            // Update the remaining count in the current deck
+
             val currentDeck = _fetchDeck.value
             if (currentDeck != null) {
                 val updatedDeck = currentDeck.copy(remaining = currentDeck.remaining - count)
                 _fetchDeck.value = updatedDeck
             }
-            if (currentDeck != null) {
-                if(currentDeck.remaining <= 0) {
-                    fetchNewDeck()
-                    drawCards(deckId, count)
-                }
+
+
+            if (_fetchDeck.value?.remaining ?: 0 <= 0) {
+                fetchNewDeck()
+
+                delay(500)
+                drawCards(_fetchDeck.value?.deckId ?: "", count)
             }
 
             Log.d("CardViewModel", "$count Cards drawn: ${result.cards}, Remaining: ${_fetchDeck.value?.remaining}")
@@ -79,7 +82,7 @@ class CardViewModel : ViewModel() {
     fun fetchNewDeck() {
         viewModelScope.launch {
             try {
-                val newDeck = deckRepository.fetchDeck() // Fetches a new deck and shuffles it
+                val newDeck = deckRepository.fetchDeck()
                 _fetchDeck.value = newDeck
                 Log.d("CardViewModel", "Fetched a new deck: ${newDeck.deckId}")
             } catch (e: Exception) {

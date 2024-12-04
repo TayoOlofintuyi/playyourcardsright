@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WarGameActivity"
+    tools:context=".War"
     android:background="@drawable/green_background"
     android:padding="16dp">
 
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
-        android:text="Player 2"
+        android:text="Computer"
         android:textColor="#D3D3D3"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -49,6 +49,52 @@
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="@id/player2Card"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tieCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Ties: 0"
+        android:textColor="#D3D3D3"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player2Wins" />
+
+    <TextView
+        android:id="@+id/player1Wins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player 1 Wins: 0"
+        android:textColor="#D3D3D3"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/player1Card"
+        app:layout_constraintTop_toBottomOf="@+id/player1Card" />
+
+    <TextView
+        android:id="@+id/player2Wins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Computer Wins: 0"
+        android:textColor="#D3D3D3"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/player2Card"
+        app:layout_constraintTop_toBottomOf="@+id/player2Card" />
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="198dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:text="RESET"
+        android:textColor="#D3D3D3"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/playButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <ImageView
         android:id="@+id/player2Card"
