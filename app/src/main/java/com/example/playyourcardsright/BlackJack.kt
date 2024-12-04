@@ -25,7 +25,6 @@ class BlackJack : AppCompatActivity() {
 
         binding.playButton.setOnClickListener {
             lifecycleScope.launch {
-
                 cardViewModel.fetchDeck.collect { deck ->
                     if (deck != null) {
                         cardViewModel.drawCards(deck.deckId, 4)
@@ -33,10 +32,7 @@ class BlackJack : AppCompatActivity() {
 
                     cardViewModel.drawCard.collect { cards ->
                         if (cards.size >= 4) {
-                            // Initialize the game by drawing the initial 4 cards
                             setupInitialCards(binding, cards)
-
-                            // Enable Stop Button for player
                             binding.stopButton.isEnabled = true
                         }
                     }
@@ -49,15 +45,13 @@ class BlackJack : AppCompatActivity() {
                 if (isPlayerTurn && cardViewModel.fetchDeck.value != null) {
                     cardViewModel.drawCards(cardViewModel.fetchDeck.value!!.deckId, 1)
 
-                    // Only process the last drawn card
-                    val newCard = cardViewModel.drawCard.value.lastOrNull() // Get the latest card
+                    val newCard = cardViewModel.drawCard.value.lastOrNull()
                     if (newCard != null) {
                         playerTotal += getCardValue(newCard)
                         updatePlayerUI(binding, newCard)
 
                         if (playerTotal > 21) {
-                            binding.gameResultText.text = "Player Busts! Dealer Wins!"
-                            endGame(binding)
+                            showGameResultPopup(binding, "Player Busts! Dealer Wins!")
                         }
                     }
                 }
@@ -65,7 +59,7 @@ class BlackJack : AppCompatActivity() {
         }
 
         binding.stopButton.setOnClickListener {
-            isPlayerTurn = false // End player's turn
+            isPlayerTurn = false
             binding.drawButton.isEnabled = false
             binding.stopButton.isEnabled = false
             lifecycleScope.launch {
@@ -80,17 +74,14 @@ class BlackJack : AppCompatActivity() {
         val dealerCard1 = cards[2]
         val dealerCard2 = cards[3]
 
-        // Set card images
         binding.playerCard1.load(playerCard1?.image)
         binding.playerCard2.load(playerCard2?.image)
         binding.dealerCard1.load(dealerCard1?.image)
         binding.dealerCard2.load(dealerCard2?.image)
 
-        // Calculate totals
         playerTotal = calculateTotal(playerCard1, playerCard2)
         dealerTotal = calculateTotal(dealerCard1, dealerCard2)
 
-        // Update UI
         binding.playerTotal.text = "Player: $playerTotal"
         binding.dealerTotal.text = "Dealer: $dealerTotal"
     }
@@ -107,7 +98,7 @@ class BlackJack : AppCompatActivity() {
             delay(1000L)
             cardViewModel.drawCards(deck.deckId, 1)
 
-            val newCard = cardViewModel.drawCard.value.lastOrNull() // Get the latest card
+            val newCard = cardViewModel.drawCard.value.lastOrNull()
             if (newCard != null) {
                 dealerTotal += getCardValue(newCard)
                 updateDealerUI(binding, newCard)
@@ -119,7 +110,8 @@ class BlackJack : AppCompatActivity() {
             }
         }
 
-        determineFinalResult(binding)
+        val result = determineWinner(playerTotal, dealerTotal)
+        showGameResultPopup(binding, result)
     }
 
     private fun updateDealerUI(binding: ActivityBlackjackBinding, card: DrawCard?) {
@@ -127,12 +119,37 @@ class BlackJack : AppCompatActivity() {
         binding.dealerTotal.text = "Dealer: $dealerTotal"
     }
 
-    private fun determineFinalResult(binding: ActivityBlackjackBinding) {
-        val result = determineWinner(playerTotal, dealerTotal)
-        binding.gameResultText.text = result
+    private fun showGameResultPopup(binding: ActivityBlackjackBinding, result: String) {
+        val dialog = android.app.AlertDialog.Builder(this)
+            .setTitle("Game Over")
+            .setMessage(result)
+            .setPositiveButton("Play Again") { _, _ ->
+                resetGame(binding)
+            }
+            .setNegativeButton("Exit") { _, _ ->
+                finish()
+            }
+            .setCancelable(false)
+            .create()
+        dialog.show()
     }
 
-    private fun endGame(binding: ActivityBlackjackBinding) {
+    private fun resetGame(binding: ActivityBlackjackBinding) {
+        playerTotal = 0
+        dealerTotal = 0
+        isPlayerTurn = true
+
+        binding.playerTotal.text = "Player: $playerTotal"
+        binding.dealerTotal.text = "Dealer: $dealerTotal"
+        binding.gameResultText.text = ""
+        binding.playerCard1.setImageResource(0)
+        binding.playerCard2.setImageResource(0)
+        binding.dealerCard1.setImageResource(0)
+        binding.dealerCard2.setImageResource(0)
+        binding.playerCardExtra.setImageResource(0)
+        binding.dealerCardExtra.setImageResource(0)
+
+        binding.playButton.isEnabled = true
         binding.drawButton.isEnabled = false
         binding.stopButton.isEnabled = false
     }
@@ -169,5 +186,3 @@ class BlackJack : AppCompatActivity() {
         }
     }
 }
-
-
