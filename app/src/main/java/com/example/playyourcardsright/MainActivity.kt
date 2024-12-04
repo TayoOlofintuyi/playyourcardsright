@@ -14,5 +14,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, War::class.java)
             startActivity(intent)
         }
+        binding.blackjackButton.setOnClickListener {
+            val intent = Intent(this, BlackJack::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -1,0 +1,180 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/green_background"
+    android:padding="16dp"
+    tools:context=".BlackJack">
+
+    <!-- Dealer's Section -->
+    <TextView
+        android:id="@+id/dealerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dealer"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <LinearLayout
+        android:id="@+id/dealerCardsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/dealerLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/dealerCard1"
+            android:layout_width="91dp"
+            android:layout_height="161dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_second" />
+
+        <ImageView
+            android:id="@+id/dealerCard2"
+            android:layout_width="91dp"
+            android:layout_height="161dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/back_second" />
+
+        <ImageView
+            android:id="@+id/dealerCardExtra"
+            android:layout_width="91dp"
+            android:layout_height="161dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/back_second" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dealerTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dealer: 0"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/dealerCardsRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Player's Section -->
+    <TextView
+        android:id="@+id/playerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/dealerTotal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <LinearLayout
+        android:id="@+id/playerCardsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/playerLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/playerCard1"
+            android:layout_width="91dp"
+            android:layout_height="161dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_second" />
+
+        <ImageView
+            android:id="@+id/playerCard2"
+            android:layout_width="91dp"
+            android:layout_height="161dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/back_second" />
+
+        <ImageView
+            android:id="@+id/playerCardExtra"
+            android:layout_width="91dp"
+            android:layout_height="161dp"
+            android:scaleType="fitCenter"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/back_second" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/playerTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player: 0"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/playerCardsRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Game Result ( no longer needed, but helps with spacing) -->
+    <TextView
+        android:id="@+id/gameResultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/playerTotal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/gameResultText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEAL" />
+
+        <Button
+            android:id="@+id/drawButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DRAW"
+            android:layout_marginStart="16dp" />
+
+        <Button
+            android:id="@+id/stopButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STOP"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
