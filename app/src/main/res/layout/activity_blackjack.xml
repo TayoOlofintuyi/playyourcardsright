@@ -1,0 +1,128 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Blackjack"
+    android:background="@drawable/green_background"
+    android:padding="16dp">
+
+    <!-- Player's Cards -->
+    <TextView
+        android:id="@+id/playerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/playerCard1"
+        android:layout_width="114dp"
+        android:layout_height="191dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_second"
+        app:layout_constraintTop_toBottomOf="@id/playerLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/playerCard2"
+        app:layout_constraintHorizontal_chainStyle="spread" />
+
+    <ImageView
+        android:id="@+id/playerCard2"
+        android:layout_width="114dp"
+        android:layout_height="191dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_second"
+        app:layout_constraintTop_toBottomOf="@id/playerLabel"
+        app:layout_constraintStart_toEndOf="@id/playerCard1"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/playerTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player: 0"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Dealer's Cards -->
+    <TextView
+        android:id="@+id/dealerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dealer"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/playerCard1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <ImageView
+        android:id="@+id/dealerCard1"
+        android:layout_width="114dp"
+        android:layout_height="191dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_second"
+        app:layout_constraintTop_toBottomOf="@id/dealerLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/dealerCard2"
+        app:layout_constraintHorizontal_chainStyle="spread" />
+
+    <ImageView
+        android:id="@+id/dealerCard2"
+        android:layout_width="114dp"
+        android:layout_height="191dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_second"
+        app:layout_constraintTop_toBottomOf="@id/dealerLabel"
+        app:layout_constraintStart_toEndOf="@id/dealerCard1"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/dealerTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dealer: 0"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/playerTotal"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Result Text -->
+    <TextView
+        android:id="@+id/gameResultText"
+        android:layout_width="267dp"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:text="Result will be shown here"
+        android:textColor="#D3D3D3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/dealerCard1"
+        app:layout_constraintBottom_toTopOf="@id/playButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Play Button -->
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="198dp"
+        android:layout_height="54dp"
+        android:text="DEAL"
+        android:textColor="#D3D3D3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

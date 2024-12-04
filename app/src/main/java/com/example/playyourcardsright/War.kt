@@ -28,12 +28,12 @@ class War : AppCompatActivity() {
 
         binding.playButton.setOnClickListener {
             lifecycleScope.launch {
-//                val shuffledDeck = cardViewModel.shuffleDeck()
-//                Log.d("War Activity", "Shuffled Deck: $shuffledDeck")
-                // Fetch deck (you may already have it in your ViewModel)
+
                 cardViewModel.fetchDeck.collect { deck ->
                     Log.d("FetchDeck War.kt", "Deck fetched: $deck")
-
+                    if (deck != null) {
+                        cardViewModel.drawCards(deck.deckId, 2)
+                    }
                     // Fetch the cards to be dealt
                     cardViewModel.drawCard.collect { cards ->
                         Log.d("Drawn cards","$cards")

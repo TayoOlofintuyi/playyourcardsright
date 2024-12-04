@@ -25,7 +25,6 @@ class DeckRepository {
 
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://deckofcardsapi.com")
-//             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -33,10 +32,12 @@ class DeckRepository {
         deckApi = retrofit.create()
     }
 
-    //I am fetching from the internal i.e. where the data is
-    suspend fun fetchDeck(): Deck =
-        deckApi.shuffleDeck()
+    // Function to fetch the deck
+    suspend fun fetchDeck(): Deck = deckApi.shuffleDeck()
 
-    //function to draw a card
-    suspend fun drawCard(deckId : String):List<DrawCard> = deckApi.drawCard(deckId).cards
+    // Function to draw a single card
+    suspend fun drawCard(deckId: String): DrawCardResult = deckApi.drawCard(deckId)
+
+    // Function to draw 4 cards
+    suspend fun drawFourCards(deckId: String): DrawCardResult = deckApi.drawFourCard(deckId)
 }
