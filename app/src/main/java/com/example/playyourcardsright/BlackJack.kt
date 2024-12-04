@@ -15,7 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class BlackJack : AppCompatActivity() {
-
+    private lateinit var binding: ActivityBlackjackBinding
     private val cardViewModel: CardViewModel by viewModels()
     private var playerTotal = 0
     private var dealerTotal = 0
@@ -23,7 +23,7 @@ class BlackJack : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityBlackjackBinding.inflate(layoutInflater)
+        binding = ActivityBlackjackBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.playButton.setOnClickListener {
@@ -37,6 +37,7 @@ class BlackJack : AppCompatActivity() {
                         if (cards.size >= 4) {
                             setupInitialCards(binding, cards)
                             binding.stopButton.isEnabled = true
+                            binding.drawButton.isEnabled = true
                         }
                     }
                 }
@@ -134,6 +135,7 @@ class BlackJack : AppCompatActivity() {
             }
             .setNeutralButton("Share") { _, _ ->
                 checkContactPermissionAndShare(result)
+                resetGame(binding)
             }
             .setCancelable(false)
             .create()
@@ -163,6 +165,7 @@ class BlackJack : AppCompatActivity() {
             putExtra(Intent.EXTRA_TEXT, "Game Result: $result")
         }
         startActivity(Intent.createChooser(shareIntent, "Share Game Result"))
+        resetGame(binding)
     }
 
     private fun resetGame(binding: ActivityBlackjackBinding) {
@@ -172,13 +175,13 @@ class BlackJack : AppCompatActivity() {
 
         binding.playerTotal.text = "Player: $playerTotal"
         binding.dealerTotal.text = "Dealer: $dealerTotal"
-        binding.gameResultText.text = ""
-        binding.playerCard1.setImageResource(0)
-        binding.playerCard2.setImageResource(0)
-        binding.dealerCard1.setImageResource(0)
-        binding.dealerCard2.setImageResource(0)
-        binding.playerCardExtra.setImageResource(0)
-        binding.dealerCardExtra.setImageResource(0)
+
+        binding.playerCard1.setImageResource(R.drawable.back_second)
+        binding.playerCard2.setImageResource(R.drawable.back_second)
+        binding.dealerCard1.setImageResource(R.drawable.back_second)
+        binding.dealerCard2.setImageResource(R.drawable.back_second)
+        binding.playerCardExtra.setImageResource(R.drawable.back_second)
+        binding.dealerCardExtra.setImageResource(R.drawable.back_second)
 
         binding.playButton.isEnabled = true
         binding.drawButton.isEnabled = false
