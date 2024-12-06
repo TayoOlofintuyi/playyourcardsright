@@ -5,7 +5,7 @@ import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-//New Deck + Shuffle the cards
+
 interface DeckOfCardsApi {
         @GET("/api/deck/new/shuffle/?deck_count=1")
         suspend fun getDeck(): Deck
