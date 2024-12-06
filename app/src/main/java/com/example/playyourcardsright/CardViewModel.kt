@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 class CardViewModel : ViewModel() {
 
     private val deckRepository = DeckRepository()
+    private var deckremaining = 0
 
     private val _fetchDeck: MutableStateFlow<Deck?> = MutableStateFlow(null)
     val fetchDeck: StateFlow<Deck?>
@@ -26,10 +27,11 @@ class CardViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             try {
-                val deck = deckRepository.fetchDeck()
+                val deck = deckRepository.getDeck()
+                deckremaining = 52
                 _fetchDeck.value = deck
 
-                drawCards(deck.deckId, 3)
+
             } catch (e: Exception) {
                 Log.e("CardViewModel", "Error fetching: ${e.message}")
             }
@@ -38,15 +40,15 @@ class CardViewModel : ViewModel() {
 
 
 
-    suspend fun shuffleDeck(): Deck {
-        val shuffledDeck = deckRepository.fetchDeck()
-        _fetchDeck.value = shuffledDeck
-        return shuffledDeck
+    suspend fun shuffleDeck(deckId: String) {
+        deckRepository.shuffleTheDeck(deckId)
+
     }
 
 
     suspend fun drawCards(deckId: String, count: Int) {
         try {
+
             val result = when (count) {
                 3 -> deckRepository.drawThreeCards(deckId)
                 2 -> deckRepository.drawCard(deckId)
@@ -55,23 +57,24 @@ class CardViewModel : ViewModel() {
             }
 
             _drawCard.value = result.cards
+            deckremaining -= count
 
 
-            val currentDeck = _fetchDeck.value
-            if (currentDeck != null) {
-                val updatedDeck = currentDeck.copy(remaining = currentDeck.remaining - count)
-                _fetchDeck.value = updatedDeck
-            }
+//            val currentDeck = _fetchDeck.value
+//            if (currentDeck != null) {
+//                val updatedDeck = currentDeck.copy(remaining = currentDeck.remaining - count)
+//                _fetchDeck.value = updatedDeck
+//            }
 
 
-            if (_fetchDeck.value?.remaining ?: 0 <= 0) {
-                fetchNewDeck()
-
+            if (deckremaining < 0) {
+                shuffleDeck(deckId)
+                deckremaining = 52
                 delay(500)
                 drawCards(_fetchDeck.value?.deckId ?: "", count)
             }
 
-            Log.d("CardViewModel", "$count Cards drawn: ${result.cards}, Remaining: ${_fetchDeck.value?.remaining}")
+            Log.d("CardViewModel", "$count Cards drawn: ${result.cards}, Remaining: $deckremaining")
         } catch (e: Exception) {
             Log.e("CardViewModel", "Error drawing cards: ${e.message}")
         }
@@ -82,7 +85,7 @@ class CardViewModel : ViewModel() {
     fun fetchNewDeck() {
         viewModelScope.launch {
             try {
-                val newDeck = deckRepository.fetchDeck()
+                val newDeck = deckRepository.getDeck()
                 _fetchDeck.value = newDeck
                 Log.d("CardViewModel", "Fetched a new deck: ${newDeck.deckId}")
             } catch (e: Exception) {

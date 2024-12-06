@@ -8,7 +8,7 @@ import retrofit2.http.Path
 //New Deck + Shuffle the cards
 interface DeckOfCardsApi {
         @GET("/api/deck/new/shuffle/?deck_count=1")
-        suspend fun shuffleDeck(): Deck
+        suspend fun getDeck(): Deck
 
         //this deck id is different from the shuffleDeck though
         @GET("/api/deck/{id}/draw/?count=2")
@@ -19,5 +19,8 @@ interface DeckOfCardsApi {
 
         @GET("/api/deck/{id}/draw/?count=1")
         suspend fun drawaCard(@Path("id") deckId: String):DrawCardResult
+
+        @GET("/api/deck/{id}/shuffle/")
+        suspend fun shuffleTheDeck(@Path("id") deckId: String): Deck
 }
 

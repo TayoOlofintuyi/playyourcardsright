@@ -30,18 +30,23 @@ class BlackJack : AppCompatActivity() {
 
         binding.playButton.setOnClickListener {
             lifecycleScope.launch {
+                // Wait for the deck to be fetched
                 cardViewModel.fetchDeck.collect { deck ->
                     if (deck != null) {
+                        // Draw 3 cards after the deck is fetched
                         cardViewModel.drawCards(deck.deckId, 3)
-                    }
 
-                    cardViewModel.drawCard.collect { cards ->
-                        if (cards.size >= 3) {
-                            setupInitialCards(binding, cards)
-                            binding.stopButton.isEnabled = true
-                            binding.drawButton.isEnabled = true
-                            binding.playButton.isEnabled = false
+                        // Collect the drawn cards
+                        cardViewModel.drawCard.collect { cards ->
+                            if (cards.size >= 3) {
+                                setupInitialCards(binding, cards)
+                                binding.stopButton.isEnabled = true
+                                binding.drawButton.isEnabled = true
+                                binding.playButton.isEnabled = false
+                            }
                         }
+                    } else {
+                        Log.e("Blackjack", "Deck is null. Cannot proceed with drawing cards.")
                     }
                 }
             }
