@@ -25,21 +25,28 @@ class BlackJack : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBlackjackBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.stopButton.isEnabled = false
+        binding.drawButton.isEnabled = false
 
         binding.playButton.setOnClickListener {
             lifecycleScope.launch {
+                // Wait for the deck to be fetched
                 cardViewModel.fetchDeck.collect { deck ->
                     if (deck != null) {
-                        cardViewModel.drawCards(deck.deckId, 4)
-                    }
+                        // Draw 3 cards after the deck is fetched
+                        cardViewModel.drawCards(deck.deckId, 3)
 
-                    cardViewModel.drawCard.collect { cards ->
-                        if (cards.size >= 4) {
-                            setupInitialCards(binding, cards)
-                            binding.stopButton.isEnabled = true
-                            binding.drawButton.isEnabled = true
-                            binding.playButton.isEnabled = false
+                        // Collect the drawn cards
+                        cardViewModel.drawCard.collect { cards ->
+                            if (cards.size >= 3) {
+                                setupInitialCards(binding, cards)
+                                binding.stopButton.isEnabled = true
+                                binding.drawButton.isEnabled = true
+                                binding.playButton.isEnabled = false
+                            }
                         }
+                    } else {
+                        Log.e("Blackjack", "Deck is null. Cannot proceed with drawing cards.")
                     }
                 }
             }
@@ -58,7 +65,10 @@ class BlackJack : AppCompatActivity() {
                         updatePlayerUI(binding, newCard)
 
                         if (playerTotal > 21) {
-                            showGameResultPopup(binding, "Play your cards Right:\n Player Busts! Dealer Wins!\n Player total: $playerTotal\n Dealer total: $dealerTotal\n")
+                            showGameResultPopup(
+                                binding,
+                                "Play your cards Right:\n Player Busts! Dealer Wins!\n Player total: $playerTotal\n Dealer total: $dealerTotal\n"
+                            )
                         }
                     }
                 }
@@ -70,6 +80,12 @@ class BlackJack : AppCompatActivity() {
             isPlayerTurn = false
             binding.drawButton.isEnabled = false
             binding.stopButton.isEnabled = false
+            if (playerTotal > 21) {
+                showGameResultPopup(
+                    binding,
+                    "Play your cards Right:\n Player Busts! Dealer Wins!\n Player total: $playerTotal\n Dealer total: $dealerTotal\n"
+                )
+            }
             lifecycleScope.launch {
                 playDealerTurn(binding)
             }
@@ -80,19 +96,24 @@ class BlackJack : AppCompatActivity() {
         val playerCard1 = cards[0]
         val playerCard2 = cards[1]
         val dealerCard1 = cards[2]
-        val dealerCard2 = cards[3]
+
 
         binding.playerCard1.load(playerCard1?.image)
         binding.playerCard2.load(playerCard2?.image)
         binding.dealerCard1.load(dealerCard1?.image)
-        binding.dealerCard2.load(dealerCard2?.image)
+
+
+        binding.dealerCard2.setImageResource(R.drawable.back_second)
 
         playerTotal = calculateTotal(playerCard1, playerCard2)
-        dealerTotal = calculateTotal(dealerCard1, dealerCard2)
+        dealerTotal = calculateTotal(dealerCard1, null)
 
         binding.playerTotal.text = "Player: $playerTotal"
         binding.dealerTotal.text = "Dealer: $dealerTotal"
+
+
     }
+
 
     private fun updatePlayerUI(binding: ActivityBlackjackBinding, card: DrawCard?) {
         binding.playerCardExtra.load(card?.image)
@@ -100,6 +121,20 @@ class BlackJack : AppCompatActivity() {
     }
 
     private suspend fun playDealerTurn(binding: ActivityBlackjackBinding) {
+
+        val currentDeck = cardViewModel.fetchDeck.value
+        val deckId = currentDeck?.deckId ?: return
+        cardViewModel.drawCards(deckId, 1)
+
+        val dealerCard2 = cardViewModel.drawCard.value.lastOrNull()
+
+        if (dealerCard2 != null) {
+            dealerTotal += getCardValue(dealerCard2)
+            binding.dealerCard2.load(dealerCard2.image)
+            binding.dealerTotal.text = "Dealer: $dealerTotal"
+        }
+
+        // Then proceed with the dealer's turn
         while (dealerTotal < 21 && dealerTotal < playerTotal) {
             delay(1000L)
 
@@ -156,12 +191,20 @@ class BlackJack : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1001 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             shareGameResult(determineWinner())
         } else {
-            Toast.makeText(this, "Contacts permission is required to share the result.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Contacts permission is required to share the result.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -192,6 +235,14 @@ class BlackJack : AppCompatActivity() {
         binding.playButton.isEnabled = true
         binding.drawButton.isEnabled = false
         binding.stopButton.isEnabled = false
+
+
+        lifecycleScope.launch {
+            val currentDeck = cardViewModel.fetchDeck.value
+            val deckId = currentDeck?.deckId ?: return@launch
+            cardViewModel.shuffleDeck(deckId)
+        }
+
     }
 
     private fun calculateTotal(card1: DrawCard?, card2: DrawCard?): Int {

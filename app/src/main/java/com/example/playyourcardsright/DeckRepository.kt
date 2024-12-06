@@ -32,13 +32,15 @@ class DeckRepository {
         deckApi = retrofit.create()
     }
 
-    // Function to fetch the deck
-    suspend fun fetchDeck(): Deck = deckApi.shuffleDeck()
 
-    // Function to draw a single card
+    suspend fun getDeck(): Deck = deckApi.getDeck()
+
+    suspend fun shuffleTheDeck(deckId: String): Deck = deckApi.shuffleTheDeck(deckId)
+
+
     suspend fun drawCard(deckId: String): DrawCardResult = deckApi.drawCard(deckId)
 
-    // Function to draw 4 cards
-    suspend fun drawFourCards(deckId: String): DrawCardResult = deckApi.drawFourCard(deckId)
+
+    suspend fun drawThreeCards(deckId: String): DrawCardResult = deckApi.drawThreeCard(deckId)
     suspend fun drawaCard(deckId: String): DrawCardResult = deckApi.drawaCard(deckId)
 }

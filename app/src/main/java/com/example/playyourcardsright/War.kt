@@ -3,9 +3,6 @@ package com.example.playyourcardsright
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +14,7 @@ import com.example.playyourcardsright.databinding.ActivityWarBinding
 import kotlinx.coroutines.launch
 
 class War : AppCompatActivity() {
-    private var result: String? = null
     private val cardViewModel: CardViewModel by viewModels()
-    private lateinit var binding: ActivityWarBinding
     private var player1Wins = 0
     private var player2Wins = 0
     private var tieCount = 0
@@ -33,9 +28,11 @@ class War : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
         lifecycleScope.launch {
             cardViewModel.fetchDeck.collect { deck ->
                 deckId = deck?.deckId
+                deckId?.let { cardViewModel.shuffleDeck(it) }
                 if (deck != null) {
                     binding.playButton.isEnabled = true
                 }
@@ -200,41 +197,30 @@ class War : AppCompatActivity() {
     }
 
     private fun resetGame(binding: ActivityWarBinding) {
-
         player1Wins = 0
         player2Wins = 0
         roundsPlayed = 0
         tieCount = 0
-        deckId = null
         isCollectingCards = false
-
 
         binding.player1Card.setImageResource(R.drawable.back_second)
         binding.player2Card.setImageResource(R.drawable.back_second)
-
         binding.player1Wins.text = "Player 1 Wins: 0"
         binding.player2Wins.text = "Computer Wins: 0"
         binding.tieCount.text = "Ties: 0"
         binding.gameResultText.text = "Result will be shown here"
-
-
         binding.playButton.isEnabled = false
 
 
-        lifecycleScope.launch {
-            cardViewModel.fetchDeck.collect { deck ->
-                deckId = deck?.deckId
-                if (deck != null) {
-                    binding.playButton.isEnabled = true
-                }
+        deckId?.let {
+            lifecycleScope.launch {
+                cardViewModel.shuffleDeck(it)
+                binding.playButton.isEnabled = true
             }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.activity_war, menu)
-        return true
-    }
+
 }
 
 

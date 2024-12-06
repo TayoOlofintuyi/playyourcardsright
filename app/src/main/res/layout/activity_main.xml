@@ -5,20 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Red Background -->
+
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/green_background" />
 
-    <!-- Background Image -->
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerInside"
         android:src="@drawable/background_pool_table" />
 
-    <!-- Main Content -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         android:padding="16dp"
         tools:context=".MainActivity">
 
-        <!-- Title -->
+
         <TextView
             android:id="@+id/titleText"
             android:layout_width="0dp"
@@ -44,16 +44,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
 
-        <!-- War Button with Styling -->
+
         <Button
             android:id="@+id/warButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="48dp"
+            android:backgroundTint="#FF0000"
             android:text="@string/war"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:backgroundTint="#FF0000"
             app:layout_constraintBottom_toTopOf="@+id/blackjackButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -64,10 +64,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:backgroundTint="#FF0000"
             android:text="@string/blackjack"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:backgroundTint="#FF0000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
