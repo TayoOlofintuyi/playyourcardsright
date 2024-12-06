@@ -39,7 +39,6 @@ class CardViewModel : ViewModel() {
     }
 
 
-
     suspend fun shuffleDeck(deckId: String) {
         deckRepository.shuffleTheDeck(deckId)
 
@@ -60,11 +59,7 @@ class CardViewModel : ViewModel() {
             deckremaining -= count
 
 
-//            val currentDeck = _fetchDeck.value
-//            if (currentDeck != null) {
-//                val updatedDeck = currentDeck.copy(remaining = currentDeck.remaining - count)
-//                _fetchDeck.value = updatedDeck
-//            }
+
 
 
             if (deckremaining < 0) {
@@ -80,19 +75,6 @@ class CardViewModel : ViewModel() {
         }
     }
 
-
-
-    fun fetchNewDeck() {
-        viewModelScope.launch {
-            try {
-                val newDeck = deckRepository.getDeck()
-                _fetchDeck.value = newDeck
-                Log.d("CardViewModel", "Fetched a new deck: ${newDeck.deckId}")
-            } catch (e: Exception) {
-                Log.e("CardViewModel", "Error fetching new deck: ${e.message}")
-            }
-        }
-    }
 
 }
 

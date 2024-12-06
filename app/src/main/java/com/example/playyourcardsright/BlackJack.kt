@@ -65,7 +65,10 @@ class BlackJack : AppCompatActivity() {
                         updatePlayerUI(binding, newCard)
 
                         if (playerTotal > 21) {
-                            showGameResultPopup(binding, "Play your cards Right:\n Player Busts! Dealer Wins!\n Player total: $playerTotal\n Dealer total: $dealerTotal\n")
+                            showGameResultPopup(
+                                binding,
+                                "Play your cards Right:\n Player Busts! Dealer Wins!\n Player total: $playerTotal\n Dealer total: $dealerTotal\n"
+                            )
                         }
                     }
                 }
@@ -77,6 +80,12 @@ class BlackJack : AppCompatActivity() {
             isPlayerTurn = false
             binding.drawButton.isEnabled = false
             binding.stopButton.isEnabled = false
+            if (playerTotal > 21) {
+                showGameResultPopup(
+                    binding,
+                    "Play your cards Right:\n Player Busts! Dealer Wins!\n Player total: $playerTotal\n Dealer total: $dealerTotal\n"
+                )
+            }
             lifecycleScope.launch {
                 playDealerTurn(binding)
             }
@@ -180,12 +189,20 @@ class BlackJack : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1001 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             shareGameResult(determineWinner())
         } else {
-            Toast.makeText(this, "Contacts permission is required to share the result.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Contacts permission is required to share the result.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

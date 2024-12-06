@@ -16,21 +16,21 @@
         android:textColor="#D3D3D3"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/dealerCardsRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/dealerLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dealerLabel">
 
         <ImageView
             android:id="@+id/dealerCard1"
@@ -43,16 +43,16 @@
             android:id="@+id/dealerCard2"
             android:layout_width="91dp"
             android:layout_height="161dp"
-            android:scaleType="fitCenter"
             android:layout_marginStart="8dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/back_second" />
 
         <ImageView
             android:id="@+id/dealerCardExtra"
             android:layout_width="91dp"
             android:layout_height="161dp"
-            android:scaleType="fitCenter"
             android:layout_marginStart="8dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/back_second" />
     </LinearLayout>
 
@@ -60,39 +60,39 @@
         android:id="@+id/dealerTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Dealer: 0"
         android:textColor="#D3D3D3"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/dealerCardsRow"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dealerCardsRow" />
 
     <!-- Player's Section -->
     <TextView
         android:id="@+id/playerLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Player"
         android:textColor="#D3D3D3"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/dealerTotal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dealerTotal" />
 
     <LinearLayout
         android:id="@+id/playerCardsRow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/playerLabel"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playerLabel">
 
         <ImageView
             android:id="@+id/playerCard1"
@@ -105,16 +105,16 @@
             android:id="@+id/playerCard2"
             android:layout_width="91dp"
             android:layout_height="161dp"
-            android:scaleType="fitCenter"
             android:layout_marginStart="8dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/back_second" />
 
         <ImageView
             android:id="@+id/playerCardExtra"
             android:layout_width="91dp"
             android:layout_height="161dp"
-            android:scaleType="fitCenter"
             android:layout_marginStart="8dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/back_second" />
     </LinearLayout>
 
@@ -122,40 +122,40 @@
         android:id="@+id/playerTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Player: 0"
         android:textColor="#D3D3D3"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/playerCardsRow"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playerCardsRow" />
 
     <!-- Game Result ( no longer needed, but helps with spacing) -->
     <TextView
         android:id="@+id/gameResultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text=""
         android:textColor="#D3D3D3"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/playerTotal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playerTotal" />
 
     <!-- Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/gameResultText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gameResultText">
 
         <Button
             android:id="@+id/playButton"
@@ -167,14 +167,14 @@
             android:id="@+id/drawButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DRAW"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            android:text="DRAW" />
 
         <Button
             android:id="@+id/stopButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STOP"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            android:text="STOP" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

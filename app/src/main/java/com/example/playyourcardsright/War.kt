@@ -17,9 +17,7 @@ import com.example.playyourcardsright.databinding.ActivityWarBinding
 import kotlinx.coroutines.launch
 
 class War : AppCompatActivity() {
-    private var result: String? = null
     private val cardViewModel: CardViewModel by viewModels()
-    private lateinit var binding: ActivityWarBinding
     private var player1Wins = 0
     private var player2Wins = 0
     private var tieCount = 0
@@ -202,14 +200,12 @@ class War : AppCompatActivity() {
     }
 
     private fun resetGame(binding: ActivityWarBinding) {
-
         player1Wins = 0
         player2Wins = 0
         roundsPlayed = 0
         tieCount = 0
         isCollectingCards = false
 
-        // Reset UI elements
         binding.player1Card.setImageResource(R.drawable.back_second)
         binding.player2Card.setImageResource(R.drawable.back_second)
         binding.player1Wins.text = "Player 1 Wins: 0"
