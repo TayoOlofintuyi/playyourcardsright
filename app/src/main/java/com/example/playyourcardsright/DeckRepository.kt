@@ -39,6 +39,6 @@ class DeckRepository {
     suspend fun drawCard(deckId: String): DrawCardResult = deckApi.drawCard(deckId)
 
     // Function to draw 4 cards
-    suspend fun drawFourCards(deckId: String): DrawCardResult = deckApi.drawFourCard(deckId)
+    suspend fun drawThreeCards(deckId: String): DrawCardResult = deckApi.drawThreeCard(deckId)
     suspend fun drawaCard(deckId: String): DrawCardResult = deckApi.drawaCard(deckId)
 }

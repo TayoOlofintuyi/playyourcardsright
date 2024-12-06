@@ -25,16 +25,18 @@ class BlackJack : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBlackjackBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.stopButton.isEnabled = false
+        binding.drawButton.isEnabled = false
 
         binding.playButton.setOnClickListener {
             lifecycleScope.launch {
                 cardViewModel.fetchDeck.collect { deck ->
                     if (deck != null) {
-                        cardViewModel.drawCards(deck.deckId, 4)
+                        cardViewModel.drawCards(deck.deckId, 3)
                     }
 
                     cardViewModel.drawCard.collect { cards ->
-                        if (cards.size >= 4) {
+                        if (cards.size >= 3) {
                             setupInitialCards(binding, cards)
                             binding.stopButton.isEnabled = true
                             binding.drawButton.isEnabled = true
@@ -80,19 +82,22 @@ class BlackJack : AppCompatActivity() {
         val playerCard1 = cards[0]
         val playerCard2 = cards[1]
         val dealerCard1 = cards[2]
-        val dealerCard2 = cards[3]
+
 
         binding.playerCard1.load(playerCard1?.image)
         binding.playerCard2.load(playerCard2?.image)
         binding.dealerCard1.load(dealerCard1?.image)
-        binding.dealerCard2.load(dealerCard2?.image)
+
+
+        binding.dealerCard2.setImageResource(R.drawable.back_second)
 
         playerTotal = calculateTotal(playerCard1, playerCard2)
-        dealerTotal = calculateTotal(dealerCard1, dealerCard2)
+        dealerTotal = calculateTotal(dealerCard1, null)
 
         binding.playerTotal.text = "Player: $playerTotal"
         binding.dealerTotal.text = "Dealer: $dealerTotal"
     }
+
 
     private fun updatePlayerUI(binding: ActivityBlackjackBinding, card: DrawCard?) {
         binding.playerCardExtra.load(card?.image)
@@ -100,6 +105,20 @@ class BlackJack : AppCompatActivity() {
     }
 
     private suspend fun playDealerTurn(binding: ActivityBlackjackBinding) {
+
+        val currentDeck = cardViewModel.fetchDeck.value
+        val deckId = currentDeck?.deckId ?: return
+        cardViewModel.drawCards(deckId, 1)
+
+        val dealerCard2 = cardViewModel.drawCard.value.lastOrNull()
+
+        if (dealerCard2 != null) {
+            dealerTotal += getCardValue(dealerCard2)
+            binding.dealerCard2.load(dealerCard2.image)
+            binding.dealerTotal.text = "Dealer: $dealerTotal"
+        }
+
+        // Then proceed with the dealer's turn
         while (dealerTotal < 21 && dealerTotal < playerTotal) {
             delay(1000L)
 

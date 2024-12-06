@@ -29,7 +29,7 @@ class CardViewModel : ViewModel() {
                 val deck = deckRepository.fetchDeck()
                 _fetchDeck.value = deck
 
-                drawCards(deck.deckId, 4)
+                drawCards(deck.deckId, 3)
             } catch (e: Exception) {
                 Log.e("CardViewModel", "Error fetching: ${e.message}")
             }
@@ -48,7 +48,7 @@ class CardViewModel : ViewModel() {
     suspend fun drawCards(deckId: String, count: Int) {
         try {
             val result = when (count) {
-                4 -> deckRepository.drawFourCards(deckId)
+                3 -> deckRepository.drawThreeCards(deckId)
                 2 -> deckRepository.drawCard(deckId)
                 1 -> deckRepository.drawaCard(deckId)
                 else -> deckRepository.drawCard(deckId)
