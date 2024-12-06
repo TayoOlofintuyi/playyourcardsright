@@ -110,6 +110,8 @@ class BlackJack : AppCompatActivity() {
 
         binding.playerTotal.text = "Player: $playerTotal"
         binding.dealerTotal.text = "Dealer: $dealerTotal"
+
+
     }
 
 
@@ -233,6 +235,14 @@ class BlackJack : AppCompatActivity() {
         binding.playButton.isEnabled = true
         binding.drawButton.isEnabled = false
         binding.stopButton.isEnabled = false
+
+
+        lifecycleScope.launch {
+            val currentDeck = cardViewModel.fetchDeck.value
+            val deckId = currentDeck?.deckId ?: return@launch
+            cardViewModel.shuffleDeck(deckId)
+        }
+
     }
 
     private fun calculateTotal(card1: DrawCard?, card2: DrawCard?): Int {
