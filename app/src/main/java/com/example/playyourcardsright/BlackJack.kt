@@ -30,13 +30,10 @@ class BlackJack : AppCompatActivity() {
 
         binding.playButton.setOnClickListener {
             lifecycleScope.launch {
-                // Wait for the deck to be fetched
                 cardViewModel.fetchDeck.collect { deck ->
                     if (deck != null) {
-                        // Draw 3 cards after the deck is fetched
                         cardViewModel.drawCards(deck.deckId, 3)
 
-                        // Collect the drawn cards
                         cardViewModel.drawCard.collect { cards ->
                             if (cards.size >= 3) {
                                 setupInitialCards(binding, cards)
@@ -134,7 +131,7 @@ class BlackJack : AppCompatActivity() {
             binding.dealerTotal.text = "Dealer: $dealerTotal"
         }
 
-        // Then proceed with the dealer's turn
+
         while (dealerTotal < 21 && dealerTotal < playerTotal) {
             delay(1000L)
 
